@@ -56,37 +56,35 @@ public class CourseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_activity_course);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         setupRecyclerView(R.id.recycler_view);
 
-        findViewById(R.id.fab_new_course)
+        if (singleton.isTeacher)
+            findViewById(R.id.fab_new_course)
                 .setOnClickListener(view -> {
+                    View dialogView = LayoutInflater.from(this).inflate(R.layout.edit_text_new_course, null);
+                    EditText editText = dialogView.findViewById(R.id.new_course_edit_text);
 
-                    if (singleton.isTeacher) {
+                    new AlertDialog.Builder(this)
+                            .setView(dialogView)
+                            .setTitle("Enter New Course Name")
+                            .setPositiveButton("Ok", (dialog, which) -> {
+                                startActivity(NewCourseActivity.newIntent(this, editText.getText().toString(), "NA"));
+                            })
+                            .create()
+                            .show();
 
-                        View dialogView = LayoutInflater.from(this).inflate(R.layout.edit_text_new_course, null);
-                        EditText editText = dialogView.findViewById(R.id.new_course_edit_text);
-
-                        new AlertDialog.Builder(this)
-                                .setView(dialogView)
-                                .setTitle("Enter New Course Name")
-                                .setPositiveButton("Ok", (dialog, which) -> {
-                                    startActivity(NewCourseActivity.newIntent(this, editText.getText().toString(), "NA"));
-                                })
-                                .create()
-                                .show();
-                    } else {
-                        startActivity(GiveExamActivity.newIntent(this, ));
-                    }
-        });
+                });
     }
 
 
     private FirebaseRecyclerOptions<Course> createOptions() {
-        return new FirebaseRecyclerOptions.Builder<Course>()
+        if (singleton.isTeacher)
+            return new FirebaseRecyclerOptions.Builder<Course>()
                 .setIndexedQuery(singleton.userRef.child("courseIDs"), singleton.firebaseRoot.child("courses"), Course.class)
+                .build();
+        else
+            return new FirebaseRecyclerOptions.Builder<Course>()
+                .setQuery(singleton.coursesRef, Course.class)
                 .build();
     }
 
@@ -109,7 +107,10 @@ public class CourseActivity extends BaseActivity {
             protected void onBindViewHolder(@NonNull CourseHolder holder, int position, @NonNull Course model) {
                 holder.bind(model);
                 holder.itemView.setOnClickListener(v -> {
-                    startActivity(NewCourseActivity.newIntent(CourseActivity.this, model.getName(), model.getID()));
+                    if (singleton.isTeacher)
+                        startActivity(NewCourseActivity.newIntent(CourseActivity.this, model.getName(), model.getID()));
+                    else
+                        startActivity(GiveExamActivity.newIntent(CourseActivity.this, model.getID()));
                 });
 
             }

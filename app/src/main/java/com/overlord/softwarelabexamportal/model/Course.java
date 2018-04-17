@@ -9,11 +9,11 @@ public class Course {
     private Map<String, QuestionAnswerMark> questionAnswerMarks;
 
     private String teacherID;
-    private ArrayList<String> studentIDs;
+    private Map<String, Boolean> studentIDs;
 
     public Course() {}
 
-    private Course(String ID, String name, String teacherID, ArrayList<String> studentIDs, Map<String, QuestionAnswerMark> questionAnswerMarks) {
+    private Course(String ID, String name, String teacherID, Map<String, Boolean> studentIDs, Map<String, QuestionAnswerMark> questionAnswerMarks) {
         this.ID = ID;
         this.name = name;
         this.teacherID = teacherID;
@@ -45,11 +45,11 @@ public class Course {
         this.teacherID = teacherID;
     }
 
-    public ArrayList<String> getStudentIDs() {
+    public Map<String, Boolean> getStudentIDs() {
         return studentIDs;
     }
 
-    public void setStudentIDs(ArrayList<String> studentIDs) {
+    public void setStudentIDs(Map<String, Boolean> studentIDs) {
         this.studentIDs = studentIDs;
     }
 
@@ -65,7 +65,7 @@ public class Course {
         private String id;
         private String name;
         private String teacherID;
-        private ArrayList<String> studentIDs;
+        private Map<String, Boolean> studentIDs;
         private Map<String, QuestionAnswerMark> questionAnswerMarks;
 
         public Builder setID(String id) {
@@ -83,7 +83,7 @@ public class Course {
             return this;
         }
 
-        public Builder setStudentIDs(ArrayList<String> studentIDs) {
+        public Builder setStudentIDs(Map<String, Boolean> studentIDs) {
             this.studentIDs = studentIDs;
             return this;
         }

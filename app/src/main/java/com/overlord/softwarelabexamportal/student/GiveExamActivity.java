@@ -48,14 +48,17 @@ public class GiveExamActivity extends BaseActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Student.Answers answers = dataSnapshot.getValue(Student.Answers.class);
 
-                        Map<String, QuestionAnswerMark> qam = course.getQuestionAnswerMarks();
+                        Map<String, QuestionAnswerMark> qams = course.getQuestionAnswerMarks();
 
                         answers.getQuestionIDAnswer()
                                 .forEach((questionID, answer) -> {
 
-                                    QuestionAnswerMark selectedQam = qam.get(questionID);
+                                    QuestionAnswerMark selectedQam = qams.get(questionID);
                                     if (selectedQam.getAnswer().equalsIgnoreCase(answer))
                                         marks += selectedQam.getMarks();
+
+                                    Log.i("", "Storing Actual Answers");
+                                    answersRef.child(questionID).setValue(selectedQam.getAnswer());
                         });
                         toast("" + marks);
                     }
@@ -104,13 +107,9 @@ public class GiveExamActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.teacher_activity_new_course);
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.student_activity_give_exam);
 
         String courseID = getIntent().getStringExtra("courseID");
-        String courseName = getIntent().getStringExtra("courseName");
 
         initRefs(courseID);
 
@@ -120,6 +119,8 @@ public class GiveExamActivity extends BaseActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot == null ||  ! dataSnapshot.exists())
                             enrollCourse(courseID);
+                        else
+                            setupViews();
                     }
 
                     @Override
@@ -154,6 +155,7 @@ public class GiveExamActivity extends BaseActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull CourseStudentHolder holder, int position, @NonNull QuestionAnswerMark model) {
+                toast(model.getQuestion());
                 holder.bind(model, charSequence ->
                     answersRef.child(model.getQamID()).setValue(charSequence));
             }

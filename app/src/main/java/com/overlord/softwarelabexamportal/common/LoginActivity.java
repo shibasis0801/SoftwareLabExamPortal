@@ -68,11 +68,9 @@ public class LoginActivity extends BaseActivity {
         }
         else {
 
-            Student student =
-                    new Student.Builder()
-                            .setName(user.getDisplayName())
-                            .setID(user.getUid())
-                            .createStudent();
+            Student student = new Student();
+            student.setName(user.getDisplayName());
+            student.setID(user.getUid());
 
             userRef.setValue(student);
         }

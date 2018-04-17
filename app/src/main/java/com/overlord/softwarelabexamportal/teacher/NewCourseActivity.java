@@ -127,9 +127,6 @@ public class NewCourseActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.teacher_activity_new_course);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
         String courseID = getIntent().getStringExtra("courseID");
         String courseName = getIntent().getStringExtra("courseName");
 
