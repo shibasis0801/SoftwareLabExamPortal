@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "235349345211",
+    "firebase_url": "https://staging-f8fc7.firebaseio.com",
+    "project_id": "staging-f8fc7",
+    "storage_bucket": "staging-f8fc7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235349345211:android:93dbc60654de2e93",
+        "android_client_info": {
+          "package_name": "com.overlord.softwarelabexamportal"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235349345211-em7fo8s9bqf8vfg7bm07pcra00nt6e9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.overlord.softwarelabexamportal",
+            "certificate_hash": "a60ccc810b25f1cc25f45dd90d5e11e0ecc69f61"
+          }
+        },
+        {
+          "client_id": "235349345211-ic15scjrk2gk3j30d6goimrns2j0csue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhr-u_ydyht1fHWoQXyTaTgR3nRJc1J1o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235349345211-ic15scjrk2gk3j30d6goimrns2j0csue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
