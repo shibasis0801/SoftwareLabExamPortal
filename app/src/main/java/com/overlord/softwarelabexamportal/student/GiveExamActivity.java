@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -45,21 +46,21 @@ public class GiveExamActivity extends BaseActivity {
 
                 answersRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Student.Answers answers = dataSnapshot.getValue(Student.Answers.class);
-
+                    public void onDataChange(DataSnapshot answers) {
                         Map<String, QuestionAnswerMark> qams = course.getQuestionAnswerMarks();
 
-                        answers.getQuestionIDAnswer()
-                                .forEach((questionID, answer) -> {
+                        answers.getChildren().forEach(dataSnapshot1 -> {
+                            String questionID = dataSnapshot1.getKey();
+                            String answer = dataSnapshot1.getValue(String.class);
 
-                                    QuestionAnswerMark selectedQam = qams.get(questionID);
-                                    if (selectedQam.getAnswer().equalsIgnoreCase(answer))
-                                        marks += selectedQam.getMarks();
+                            QuestionAnswerMark selectedQam = qams.get(questionID);
+                            if (selectedQam.getAnswer().equalsIgnoreCase(answer))
+                                marks += selectedQam.getMarks();
 
-                                    Log.i("", "Storing Actual Answers");
-                                    answersRef.child(questionID).setValue(selectedQam.getAnswer());
+                            Log.i("", "Storing Actual Answers");
+                            answersRef.child(questionID).setValue(selectedQam.getAnswer());
                         });
+
                         toast("" + marks);
                     }
 
@@ -155,9 +156,11 @@ public class GiveExamActivity extends BaseActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull CourseStudentHolder holder, int position, @NonNull QuestionAnswerMark model) {
-                toast(model.getQuestion());
-                holder.bind(model, charSequence ->
-                    answersRef.child(model.getQamID()).setValue(charSequence));
+
+                holder.bind(model);
+                ((EditText)holder.itemView.findViewById(R.id.student_answer_edit_text))
+                        .addTextChangedListener(Shorter.textWatcher(
+                                charSequence -> answersRef.child(model.getQamID()).setValue(charSequence.toString())));
             }
 
             @NonNull

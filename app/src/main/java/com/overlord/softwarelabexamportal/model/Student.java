@@ -27,12 +27,12 @@ public class Student {
     private String name;
     private String ID;
 
-    private ArrayList<String> courseIDs;
+    private Map<String, Boolean> courseIDs;
     private Map<String, Answers> answersGiven;
 
     public Student() {}
 
-    private Student(String name, String ID, ArrayList<String> courseIDs, Map<String, Answers> answersGiven) {
+    private Student(String name, String ID, Map<String, Boolean> courseIDs, Map<String, Answers> answersGiven) {
         this.name = name;
         this.ID = ID;
         this.courseIDs = courseIDs;
@@ -55,11 +55,11 @@ public class Student {
         this.ID = ID;
     }
 
-    public ArrayList<String> getCourseIDs() {
+    public Map<String, Boolean> getCourseIDs() {
         return courseIDs;
     }
 
-    public void setCourseIDs(ArrayList<String> courseIDs) {
+    public void setCourseIDs(Map<String, Boolean> courseIDs) {
         this.courseIDs = courseIDs;
     }
 

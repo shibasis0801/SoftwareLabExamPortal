@@ -24,12 +24,11 @@ public class CourseStudentHolder extends RecyclerView.ViewHolder{
         answerInputView = itemView.findViewById(answerEditTextID);
     }
 
-    public void bind(QuestionAnswerMark qam, Consumer<CharSequence> charSequenceConsumer) {
+    public void bind(QuestionAnswerMark qam) {
         this.qam = qam;
 
         if(qam != null) {
             questionTextView.setText("Q > " + qam.getQuestion());
-            answerInputView.addTextChangedListener(Shorter.textWatcher(charSequenceConsumer));
         }
     }
 }

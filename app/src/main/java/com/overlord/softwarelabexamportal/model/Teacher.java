@@ -1,17 +1,18 @@
 package com.overlord.softwarelabexamportal.model;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Teacher {
     private String name;
     private String ID;
 
-    private ArrayList<String> courseIDs;
-    private ArrayList<String> studentIDs;
+    private Map<String, Boolean> courseIDs;
+    private Map<String, Boolean> studentIDs;
 
     public Teacher() {}
 
-    private Teacher(String name, String ID, ArrayList<String> courseIDs, ArrayList<String> studentIDs) {
+    public Teacher(String name, String ID, Map<String, Boolean> courseIDs, Map<String, Boolean> studentIDs) {
         this.name = name;
         this.ID = ID;
         this.courseIDs = courseIDs;
@@ -34,27 +35,27 @@ public class Teacher {
         this.ID = ID;
     }
 
-    public ArrayList<String> getCourseIDs() {
+    public Map<String, Boolean> getCourseIDs() {
         return courseIDs;
     }
 
-    public void setCourseIDs(ArrayList<String> courseIDs) {
+    public void setCourseIDs(Map<String, Boolean> courseIDs) {
         this.courseIDs = courseIDs;
     }
 
-    public ArrayList<String> getStudentIDs() {
+    public Map<String, Boolean> getStudentIDs() {
         return studentIDs;
     }
 
-    public void setStudentIDs(ArrayList<String> studentIDs) {
+    public void setStudentIDs(Map<String, Boolean> studentIDs) {
         this.studentIDs = studentIDs;
     }
 
     public static class Builder {
         private String name;
         private String id;
-        private ArrayList<String> courseIDs;
-        private ArrayList<String> studentIDs;
+        private Map<String, Boolean> courseIDs;
+        private Map<String, Boolean> studentIDs;
 
         public Builder setName(String name) {
             this.name = name;
@@ -66,12 +67,12 @@ public class Teacher {
             return this;
         }
 
-        public Builder setCourseIDs(ArrayList<String> courseIDs) {
+        public Builder setCourseIDs(Map<String, Boolean> courseIDs) {
             this.courseIDs = courseIDs;
             return this;
         }
 
-        public Builder setStudentIDs(ArrayList<String> studentIDs) {
+        public Builder setStudentIDs(Map<String, Boolean> studentIDs) {
             this.studentIDs = studentIDs;
             return this;
         }
